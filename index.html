@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>カウントダウンタイマー</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 50px;
+        }
+        .countdown {
+            font-size: 50px;
+            color: #333;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>イベントまでのカウントダウン</h1>
+    <div class="countdown" id="countdown"></div>
+
+    <script>
+        // カウントダウン対象の日付を設定
+        const eventDate = new Date("2024-12-31T23:59:59").getTime();
+
+        // 毎秒カウントダウンを更新
+        const countdownInterval = setInterval(() => {
+            const now = new Date().getTime();
+            const timeLeft = eventDate - now;
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").innerHTML =
+                days + "日 " + hours + "時間 " + minutes + "分 " + seconds + "秒";
+
+            if (timeLeft < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("countdown").innerHTML = "イベントが開始しました！";
+            }
+        }, 1000);
+    </script>
+
+</body>
+</html>
